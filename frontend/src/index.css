@@ -1,0 +1,376 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-horror-bg text-slate-100 antialiased;
+    background-image: radial-gradient(
+        ellipse 80% 50% at 50% -20%,
+        rgba(139, 0, 0, 0.15),
+        transparent
+      ),
+      radial-gradient(
+        ellipse 60% 40% at 100% 100%,
+        rgba(30, 10, 20, 0.8),
+        transparent
+      );
+  }
+}
+
+@layer components {
+  .btn-crimson {
+    @apply relative overflow-hidden rounded-lg px-6 py-3 font-horror text-sm font-semibold uppercase tracking-widest text-white transition-all duration-300;
+    background: linear-gradient(135deg, #8b0000 0%, #dc143c 50%, #8b0000 100%);
+    background-size: 200% 200%;
+    box-shadow: 0 0 20px rgba(220, 20, 60, 0.5), 0 0 40px rgba(139, 0, 0, 0.3);
+    border: 1px solid rgba(220, 20, 60, 0.4);
+  }
+
+  .btn-crimson:hover {
+    background-position: 100% 100%;
+    box-shadow: 0 0 30px rgba(220, 20, 60, 0.7), 0 0 50px rgba(139, 0, 0, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .btn-crimson:active {
+    transform: translateY(0);
+  }
+
+  .btn-crimson:disabled {
+    @apply cursor-not-allowed opacity-60;
+    transform: none;
+  }
+
+  .btn-choice {
+    @apply btn-crimson w-full text-left normal-case tracking-normal;
+    background: linear-gradient(135deg, #1a0a0f 0%, #2d1018 50%, #1a0a0f 100%);
+    box-shadow: 0 0 12px rgba(139, 0, 0, 0.3);
+  }
+
+  .btn-choice:hover {
+    background: linear-gradient(135deg, #3d1018 0%, #6b1525 50%, #3d1018 100%);
+    box-shadow: 0 0 24px rgba(220, 20, 60, 0.5);
+  }
+
+  .glass-card {
+    @apply rounded-2xl border border-white/10 backdrop-blur-xl;
+    background: rgba(12, 10, 16, 0.55);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .vignette {
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 40%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+  }
+
+  .fog-drift {
+    opacity: 0.07;
+    animation: fog-drift 55s ease-in-out infinite;
+  }
+
+  .fog-drift-b {
+    animation-duration: 70s;
+    animation-delay: -20s;
+  }
+
+  .dust-particle {
+    animation: dust-float ease-in-out infinite;
+  }
+
+  .story-card-glow {
+    animation: story-glow-pulse 6.5s ease-in-out infinite;
+  }
+
+  .sanity-critical-pulse {
+    animation: sanity-critical-glow 1.6s ease-in-out infinite;
+  }
+
+  .flashlight-overlay {
+    --mx: 50%;
+    --my: 50%;
+    background: radial-gradient(
+        circle 160px at var(--mx) var(--my),
+        rgba(255, 240, 220, 0.09) 0%,
+        rgba(255, 240, 220, 0.03) 38%,
+        transparent 62%
+      ),
+      rgba(0, 0, 0, 0.12);
+  }
+
+  .shadow-tendrils-overlay {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    overflow: hidden;
+    -webkit-mask-image: radial-gradient(
+      ellipse 58% 52% at 50% 48%,
+      transparent 42%,
+      black 88%
+    );
+    mask-image: radial-gradient(
+      ellipse 58% 52% at 50% 48%,
+      transparent 42%,
+      black 88%
+    );
+  }
+
+  .tendril {
+    position: absolute;
+    border-radius: 45% 55% 50% 50%;
+    filter: blur(72px);
+    opacity: 0.11;
+    will-change: transform;
+  }
+
+  .tendril-tl {
+    top: -18%;
+    left: -14%;
+    width: 52%;
+    height: 48%;
+    background: radial-gradient(
+      ellipse at 30% 30%,
+      rgba(28, 6, 10, 0.95) 0%,
+      rgba(12, 4, 8, 0.45) 45%,
+      transparent 72%
+    );
+    animation: tendril-drift-tl 52s ease-in-out infinite;
+  }
+
+  .tendril-tr {
+    top: -16%;
+    right: -12%;
+    width: 50%;
+    height: 46%;
+    background: radial-gradient(
+      ellipse at 70% 28%,
+      rgba(34, 8, 12, 0.9) 0%,
+      rgba(18, 6, 10, 0.4) 48%,
+      transparent 74%
+    );
+    animation: tendril-drift-tr 58s ease-in-out infinite;
+  }
+
+  .tendril-bl {
+    bottom: -20%;
+    left: -10%;
+    width: 48%;
+    height: 50%;
+    background: radial-gradient(
+      ellipse at 24% 72%,
+      rgba(20, 5, 8, 0.92) 0%,
+      rgba(10, 4, 6, 0.38) 50%,
+      transparent 75%
+    );
+    animation: tendril-drift-bl 64s ease-in-out infinite;
+  }
+
+  .tendril-br {
+    bottom: -18%;
+    right: -14%;
+    width: 54%;
+    height: 48%;
+    background: radial-gradient(
+      ellipse at 76% 70%,
+      rgba(30, 7, 11, 0.88) 0%,
+      rgba(14, 5, 8, 0.42) 46%,
+      transparent 73%
+    );
+    animation: tendril-drift-br 48s ease-in-out infinite;
+  }
+
+  .tendril-left {
+    top: 22%;
+    left: -22%;
+    width: 38%;
+    height: 62%;
+    background: radial-gradient(
+      ellipse at 80% 50%,
+      rgba(16, 4, 6, 0.85) 0%,
+      rgba(8, 3, 5, 0.35) 55%,
+      transparent 78%
+    );
+    animation: tendril-drift-left 56s ease-in-out infinite;
+  }
+
+  .tendril-right {
+    top: 18%;
+    right: -20%;
+    width: 36%;
+    height: 64%;
+    background: radial-gradient(
+      ellipse at 20% 50%,
+      rgba(22, 6, 9, 0.82) 0%,
+      rgba(10, 4, 6, 0.34) 52%,
+      transparent 76%
+    );
+    animation: tendril-drift-right 60s ease-in-out infinite;
+  }
+
+  .tendril-top {
+    top: -24%;
+    left: 18%;
+    width: 64%;
+    height: 36%;
+    background: radial-gradient(
+      ellipse at 50% 90%,
+      rgba(18, 5, 8, 0.8) 0%,
+      rgba(8, 3, 5, 0.32) 50%,
+      transparent 78%
+    );
+    animation: tendril-drift-top 54s ease-in-out infinite;
+  }
+
+  .tendril-bottom {
+    bottom: -22%;
+    left: 20%;
+    width: 60%;
+    height: 34%;
+    background: radial-gradient(
+      ellipse at 50% 10%,
+      rgba(24, 6, 10, 0.78) 0%,
+      rgba(12, 4, 7, 0.3) 48%,
+      transparent 80%
+    );
+    animation: tendril-drift-bottom 62s ease-in-out infinite;
+  }
+}
+
+@keyframes fog-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(6%, -4%) scale(1.08);
+  }
+}
+
+@keyframes dust-float {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.05;
+  }
+  50% {
+    transform: translate(var(--dust-x), var(--dust-y));
+    opacity: 0.12;
+  }
+}
+
+@keyframes story-glow-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.6),
+      0 0 18px rgba(100, 10, 20, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  50% {
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.6),
+      0 0 32px rgba(120, 12, 24, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+}
+
+@keyframes sanity-critical-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.6),
+      0 0 10px rgba(220, 38, 38, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.6),
+      0 0 22px rgba(220, 38, 38, 0.55);
+  }
+}
+
+@keyframes tendril-drift-tl {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate(4%, 3%) rotate(6deg) scale(1.06);
+  }
+}
+
+@keyframes tendril-drift-tr {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate(-3%, 4%) rotate(-5deg) scale(1.05);
+  }
+}
+
+@keyframes tendril-drift-bl {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate(5%, -3%) rotate(4deg) scale(1.07);
+  }
+}
+
+@keyframes tendril-drift-br {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate(-4%, -4%) rotate(-6deg) scale(1.06);
+  }
+}
+
+@keyframes tendril-drift-left {
+  0%,
+  100% {
+    transform: translate(0, 0) scaleY(1);
+  }
+  50% {
+    transform: translate(6%, -2%) scaleY(1.08);
+  }
+}
+
+@keyframes tendril-drift-right {
+  0%,
+  100% {
+    transform: translate(0, 0) scaleY(1);
+  }
+  50% {
+    transform: translate(-6%, 2%) scaleY(1.07);
+  }
+}
+
+@keyframes tendril-drift-top {
+  0%,
+  100% {
+    transform: translate(0, 0) scaleX(1);
+  }
+  50% {
+    transform: translate(2%, 5%) scaleX(1.06);
+  }
+}
+
+@keyframes tendril-drift-bottom {
+  0%,
+  100% {
+    transform: translate(0, 0) scaleX(1);
+  }
+  50% {
+    transform: translate(-2%, -5%) scaleX(1.05);
+  }
+}
