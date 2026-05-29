@@ -174,7 +174,7 @@ function App() {
   const generateStory = async (selectedChoice = "", storyContext = story) => {
     setLoading(true);
 
-    const response = await fetch("https://ai-horror-story-backend.onrender.com", {
+    const response = await fetch("https://ai-horror-story-backend.onrender.com/generate-story", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
